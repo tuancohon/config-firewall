@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<lab name="lap6" version="1" scripttimeout="300" lock="0" author="tuanas">
+  <body>cấu hình ASA cơ bản</body>
+  <topology>
+    <nodes>
+      <node id="1" name="ASAv" type="qemu" template="asav" image="asav-992" console="telnet" cpu="1" cpulimit="1" ram="2048" ethernet="8" uuid="f1eb2fc6-a0b5-41da-aa5e-9c1eeebdb40d" qemu_options="-machine type=pc,accel=kvm -serial mon:stdio -nographic -no-user-config -cpu host -nodefaults -display none -vga std -rtc base=utc" qemu_version="2.12.0" qemu_arch="x86_64" delay="0" icon="ASA.png" config="0" left="588" top="189">
+        <interface id="1" name="Gi0/0" type="ethernet" network_id="2"/>
+        <interface id="2" name="Gi0/1" type="ethernet" network_id="3"/>
+        <interface id="3" name="Gi0/2" type="ethernet" network_id="1"/>
+      </node>
+      <node id="2" name="DMZ" type="vpcs" template="vpcs" image="" ethernet="1" delay="0" icon="Desktop.png" config="0" left="588" top="330">
+        <interface id="0" name="eth0" type="ethernet" network_id="3"/>
+      </node>
+      <node id="3" name="Router" type="iol" template="iol" image="i86bi_linux-adventerprisek9-ms.155-2.T.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Router.png" config="0" left="432" top="201">
+        <interface id="0" name="e0/0" type="ethernet" network_id="2"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="4"/>
+      </node>
+      <node id="4" name="R4" type="iol" template="iol" image="i86bi-linux-l2-adventerprisek9-15.2d.bin" ethernet="1" nvram="1024" ram="1024" serial="0" console="" delay="0" icon="Switch.png" config="0" left="282" top="207">
+        <interface id="0" name="e0/0" type="ethernet" network_id="4"/>
+        <interface id="16" name="e0/1" type="ethernet" network_id="5"/>
+        <interface id="32" name="e0/2" type="ethernet" network_id="6"/>
+        <interface id="48" name="e0/3" type="ethernet" network_id="7"/>
+      </node>
+      <node id="5" name="VPC5" type="vpcs" template="vpcs" image="" ethernet="1" delay="0" icon="Desktop.png" config="0" left="81" top="99">
+        <interface id="0" name="eth0" type="ethernet" network_id="6"/>
+      </node>
+      <node id="6" name="VPC6" type="vpcs" template="vpcs" image="" ethernet="1" delay="0" icon="Desktop.png" config="0" left="75" top="192">
+        <interface id="0" name="eth0" type="ethernet" network_id="5"/>
+      </node>
+      <node id="7" name="Linux" type="qemu" template="linux" image="linux-kali-large-2019.3" console="vnc" cpu="2" cpulimit="0" ram="4096" ethernet="1" uuid="23779b40-c82c-426a-9954-63e249e30deb" firstmac="00:50:00:00:07:00" qemu_options="-machine type=pc,accel=kvm -vga virtio -usbdevice tablet -boot order=cd" qemu_version="2.12.0" qemu_arch="x86_64" qemu_nic="virtio-net-pci" delay="0" icon="Server.png" config="0" left="78" top="297">
+        <interface id="0" name="e0" type="ethernet" network_id="7"/>
+      </node>
+      <node id="8" name="Win" type="qemu" template="win" image="win-7test" console="vnc" cpu="1" cpulimit="0" ram="4096" ethernet="1" uuid="e431cd67-238e-44cb-8578-dd5033c47849" qemu_options="-machine type=pc,accel=kvm -cpu host,+pcid,+kvm_pv_unhalt,+kvm_pv_eoi,hv_spinlocks=0x1fff,hv_vapic,hv_time,hv_reset,hv_vpindex,hv_runtime,hv_relaxed,hv_synic,hv_stimer -vga std -usbdevice tablet -boot order=cd -drive file=/opt/qemu/share/qemu/virtio-win-drivers.img,index=1,if=floppy,readonly" qemu_version="4.1.0" qemu_arch="x86_64" delay="0" icon="Desktop.png" config="0" left="894" top="195">
+        <interface id="0" name="e0" type="ethernet" network_id="1"/>
+      </node>
+    </nodes>
+    <networks>
+      <network id="1" type="pnet0" name="Net" left="750" top="201" visibility="1"/>
+      <network id="2" type="bridge" name="Net-Routeriface_0" left="429" top="238" visibility="0"/>
+      <network id="3" type="bridge" name="Net-ASAviface_2" left="654" top="220" visibility="0"/>
+      <network id="4" type="bridge" name="Net-R4iface_0" left="255" top="253" visibility="0"/>
+      <network id="5" type="bridge" name="Net-VPC6iface_0" left="147" top="373" visibility="0"/>
+      <network id="6" type="bridge" name="Net-VPC5iface_0" left="162" top="157" visibility="0"/>
+      <network id="7" type="bridge" name="Net-Linuxiface_0" left="249" top="343" visibility="0"/>
+    </networks>
+  </topology>
+  <objects>
+    <configs>
+      <config id="2">c2V0IHBjbmFtZSBETVoKaXAgMTkyLjE2OC4xMC4yIDE5Mi4xNjguMTAuMSAyNAo=</config>
+      <config id="5">c2V0IHBjbmFtZSBQQzAyCmlwIDE5Mi4xNjguMi4yIDE5Mi4xNjguMi4yNTQgMjQK</config>
+      <config id="6">c2V0IHBjbmFtZSBQQzAxCmlwIDE5Mi4xNjguMi4xIDE5Mi4xNjguMi4yNTQgMjQK</config>
+    </configs>
+  </objects>
+</lab>
